@@ -1,8 +1,14 @@
-import { contextBridge } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
+export interface RendererApi {
+  getApiBaseUrl: () => Promise<string>
+}
+
 // Custom APIs for renderer
-const api = {}
+const api: RendererApi = {
+  getApiBaseUrl: () => ipcRenderer.invoke('server:base-url')
+}
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise

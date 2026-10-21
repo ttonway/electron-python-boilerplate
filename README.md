@@ -12,6 +12,11 @@ An Electron application with React and TypeScript
 
 ```bash
 $ npm install
+
+# prepare Python venv
+$ python -m venv .venv
+$ ./.venv/Scripts/Activate.ps1
+$ pip install -r requirements.txt
 ```
 
 ### Development

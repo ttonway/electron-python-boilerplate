@@ -11,8 +11,11 @@ files:
   - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
 asarUnpack:
   - resources/**
+afterPack: "./scripts/build-python.mjs"
 win:
   executableName: electron-python-boilerplate
+  target:
+    - target: zip
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}

@@ -1,8 +1,21 @@
 import Versions from './components/Versions'
 import electronLogo from './assets/electron.svg'
 
+import { api } from './api'
+
 function App(): React.JSX.Element {
-  const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
+  // const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
+  const testaddHandle = async (): Promise<void> => {
+    try {
+      const result = await api.api_add({
+        a: 1,
+        b: 2
+      })
+      console.log('api_add result.', result)
+    } catch (err) {
+      console.error('api_add fail.', err)
+    }
+  }
 
   return (
     <>
@@ -22,8 +35,8 @@ function App(): React.JSX.Element {
           </a>
         </div>
         <div className="action">
-          <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
-            Send IPC
+          <a target="_blank" rel="noreferrer" onClick={testaddHandle}>
+            Test api_add
           </a>
         </div>
       </div>
