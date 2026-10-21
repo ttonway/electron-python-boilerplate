@@ -23,25 +23,30 @@ export default async function (context) {
 
   const distpath = join(resourcesPath, 'dist')
   const projectDir = packager.projectDir ?? process.cwd()
-  const pythonExecutable = process.platform === 'win32'
-    ? join(projectDir, '.venv', 'Scripts', 'python.exe')
-    : join(projectDir, '.venv', 'bin', 'python')
+  const pythonExecutable =
+    process.platform === 'win32'
+      ? join(projectDir, '.venv', 'Scripts', 'python.exe')
+      : join(projectDir, '.venv', 'bin', 'python')
 
   if (!existsSync(pythonExecutable)) {
     throw new Error(`Python virtual environment executable not found: ${pythonExecutable}`)
   }
 
-  execFileSync(pythonExecutable, [
-    '-m',
-    'PyInstaller',
-    join(projectDir, 'py_src', 'main_http.spec'),
-    '--distpath',
-    distpath,
-    '--workpath',
-    join(projectDir, 'out'),
-    '-y'
-  ], {
-    cwd: projectDir,
-    stdio: 'inherit'
-  })
+  execFileSync(
+    pythonExecutable,
+    [
+      '-m',
+      'PyInstaller',
+      join(projectDir, 'py_src', 'main_http.spec'),
+      '--distpath',
+      distpath,
+      '--workpath',
+      join(projectDir, 'out'),
+      '-y'
+    ],
+    {
+      cwd: projectDir,
+      stdio: 'inherit'
+    }
+  )
 }
